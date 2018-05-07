@@ -2,6 +2,8 @@ from tkinter import *
 import cv2
 from PIL import Image
 from PIL import ImageTk
+from image_processing import *
+from statistics import *
 
 # PARAMETRY:
 WIDTH_WINDOW = 1500
@@ -9,9 +11,14 @@ HEIGHT_WINDOW = 700
 WIDTH_IMAGE = 300
 HEIGHT_IMAGE = 300
 
-input_image = cv2.imread("images/input/im0001.ppm")
+input_image = cv2.imread("images/input/im0255.ppm")
+input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
 
-binary_image = cv2.imread("images/binary/im0001.ah.ppm")
+binary_input_image = cv2.imread("images/binary/im0255.ah.ppm")
+
+binary_output_image = image_processing(input_image)
+tpr, tnr, ppv, npv = statistics(binary_input_image, binary_output_image)
+
 
 root = Tk()
 root.title("Dno oka")
@@ -36,28 +43,28 @@ resized_input_image = display_input_image.resize((WIDTH_IMAGE, HEIGHT_IMAGE), Im
 display_input_image = ImageTk.PhotoImage(resized_input_image)
 f.create_image(212, 300, image=display_input_image)
 
-label_binary_image = Label(root, text="Maska binarna wejściowa:")
-label_binary_image.pack()
-label_binary_image.place(x=510, y=50)
-display_binary_image = Image.fromarray(binary_image)
-resized_binary_image = display_binary_image.resize((WIDTH_IMAGE, HEIGHT_IMAGE), Image.NEAREST)
-display_binary_image = ImageTk.PhotoImage(resized_binary_image)
-f.create_image(574, 300, image=display_binary_image)
+label_binary_input_image = Label(root, text="Maska binarna wejściowa:")
+label_binary_input_image.pack()
+label_binary_input_image.place(x=510, y=50)
+display_binary_input_image = Image.fromarray(binary_input_image)
+resized_binary_input_image = display_binary_input_image.resize((WIDTH_IMAGE, HEIGHT_IMAGE), Image.NEAREST)
+display_binary_input_image = ImageTk.PhotoImage(resized_binary_input_image)
+f.create_image(574, 300, image=display_binary_input_image)
 
-label_output_image = Label(root, text="Maska binarna wyjściowa:")
+label_binary_output_image = Label(root, text="Maska binarna wyjściowa:")
+label_binary_output_image.pack()
+label_binary_output_image.place(x=870, y=50)
+display_binary_output_image = Image.fromarray(binary_output_image)
+resized_binary_output_image = display_binary_output_image.resize((WIDTH_IMAGE, HEIGHT_IMAGE), Image.NEAREST)
+display_binary_output_image = ImageTk.PhotoImage(resized_binary_output_image)
+f.create_image(936, 300, image=display_binary_output_image)
+
+label_output_image = Label(root, text="Obraz wyjściowy:")
 label_output_image.pack()
-label_output_image.place(x=870, y=50)
+label_output_image.place(x=1255, y=50)
 display_output_image = Image.fromarray(input_image)
 resized_output_image = display_output_image.resize((WIDTH_IMAGE, HEIGHT_IMAGE), Image.NEAREST)
 display_output_image = ImageTk.PhotoImage(resized_output_image)
-f.create_image(936, 300, image=display_output_image)
-
-label_output2_image = Label(root, text="Obraz wyjściowy:")
-label_output2_image.pack()
-label_output2_image.place(x=1255, y=50)
-display_output2_image = Image.fromarray(input_image)
-resized_output2_image = display_output2_image.resize((WIDTH_IMAGE, HEIGHT_IMAGE), Image.NEAREST)
-display_output2_image = ImageTk.PhotoImage(resized_output2_image)
-f.create_image(1298, 300, image=display_output2_image)
+f.create_image(1298, 300, image=display_output_image)
 
 root.mainloop()
