@@ -1,5 +1,4 @@
 from tkinter import *
-import cv2
 from PIL import Image
 from PIL import ImageTk
 from image_processing import *
@@ -16,7 +15,7 @@ input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
 
 binary_input_image = cv2.imread("images/binary/im0255.ah.ppm")
 
-binary_output_image = image_processing(input_image)
+binary_output_image, output_image = image_processing(input_image)
 tpr, tnr, ppv, npv = statistics(binary_input_image, binary_output_image)
 
 print("TPR: " + str(tpr))
@@ -67,7 +66,7 @@ f.create_image(936, 300, image=display_binary_output_image)
 label_output_image = Label(root, text="Obraz wyjściowy:")
 label_output_image.pack()
 label_output_image.place(x=1255, y=50)
-display_output_image = Image.fromarray(input_image)
+display_output_image = Image.fromarray(output_image)
 resized_output_image = display_output_image.resize((WIDTH_IMAGE, HEIGHT_IMAGE), Image.NEAREST)
 display_output_image = ImageTk.PhotoImage(resized_output_image)
 f.create_image(1298, 300, image=display_output_image)
