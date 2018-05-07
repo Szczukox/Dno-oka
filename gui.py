@@ -19,6 +19,11 @@ binary_input_image = cv2.imread("images/binary/im0255.ah.ppm")
 binary_output_image = image_processing(input_image)
 tpr, tnr, ppv, npv = statistics(binary_input_image, binary_output_image)
 
+print("TPR: " + str(tpr))
+print("TNR: " + str(tnr))
+print("PPV: " + str(ppv))
+print("NPV: " + str(npv))
+
 
 root = Tk()
 root.title("Dno oka")
