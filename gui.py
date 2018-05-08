@@ -10,18 +10,21 @@ HEIGHT_WINDOW = 700
 WIDTH_IMAGE = 300
 HEIGHT_IMAGE = 300
 
-input_image = cv2.imread("images/input/im0001.ppm")
+file_name = "im0082"
+
+input_image = cv2.imread("images/input/" + file_name + ".ppm")
 input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
 
-binary_input_image = cv2.imread("images/binary/im0001.ah.ppm")
+binary_input_image = cv2.imread("images/binary/" + file_name + ".ah.ppm")
 
 binary_output_image, output_image = image_processing(input_image)
-tpr, tnr, ppv, npv = statistics(binary_input_image, binary_output_image)
+tpr, tnr, ppv, npv, f_measure = statistics(binary_input_image, binary_output_image)
 
 print("TPR: " + str(tpr))
 print("TNR: " + str(tnr))
 print("PPV: " + str(ppv))
 print("NPV: " + str(npv))
+print("F-measure: " + str(f_measure))
 
 
 root = Tk()
@@ -70,5 +73,8 @@ display_output_image = Image.fromarray(output_image)
 resized_output_image = display_output_image.resize((WIDTH_IMAGE, HEIGHT_IMAGE), Image.NEAREST)
 display_output_image = ImageTk.PhotoImage(resized_output_image)
 f.create_image(1298, 300, image=display_output_image)
+
+cv2.imwrite("output_binary_image_" + file_name + ".png", binary_output_image)
+cv2.imwrite("output_image_" + file_name + ".png", cv2.cvtColor(output_image, cv2.COLOR_RGB2BGR))
 
 root.mainloop()

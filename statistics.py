@@ -14,5 +14,5 @@ def statistics(binary_input_image, binary_output_image):
     tnr = tn / (tn + fp)
     ppv = tp / (tp + fp)
     npv = tn / (tn + fn)
-    # tpr, tnr, ppv, npv = 0, 0, 0, 0
-    return tpr, tnr, ppv, npv
+    f_measure = 2 / ((1 / ppv) + (1 / tpr))
+    return tpr, tnr, ppv, npv, f_measure
