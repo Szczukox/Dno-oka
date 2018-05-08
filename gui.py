@@ -10,10 +10,10 @@ HEIGHT_WINDOW = 700
 WIDTH_IMAGE = 300
 HEIGHT_IMAGE = 300
 
-input_image = cv2.imread("images/input/im0255.ppm")
+input_image = cv2.imread("images/input/im0001.ppm")
 input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
 
-binary_input_image = cv2.imread("images/binary/im0255.ah.ppm")
+binary_input_image = cv2.imread("images/binary/im0001.ah.ppm")
 
 binary_output_image, output_image = image_processing(input_image)
 tpr, tnr, ppv, npv = statistics(binary_input_image, binary_output_image)
